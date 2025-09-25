@@ -1,11 +1,11 @@
 export function SignIn(){
     return(
-        <>
+        <div className="p-8">
            <picture>
                 <img src="src/assets/signInImage.png" alt="" />
            </picture>
-           <section>
-                <h1>FASCO</h1>
+           <section className="p-4">
+                <h1 className="font-(family-name:--font-volkhov) text-2xl">FASCO</h1>
                 <div>
                     <h2>Sign In To FASCO</h2>
                     <div>
@@ -38,6 +38,6 @@ export function SignIn(){
                 </div>
                 <p>FASCO Terms & Condition</p>
            </section>
-        </>
+        </div>
     )
 }

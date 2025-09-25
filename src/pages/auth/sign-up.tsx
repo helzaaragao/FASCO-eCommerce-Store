@@ -6,7 +6,7 @@ export function SignUp(){
            </picture>
            <section>
                 <h1>FASCO</h1>
-                <div>
+                <div className="font-bold">
                     <h2>Create Account</h2>
                     <div>
                     <button>
