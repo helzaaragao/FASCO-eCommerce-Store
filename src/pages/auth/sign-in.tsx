@@ -33,23 +33,23 @@ export function SignIn(){
                          <hr className="w-5 border-2 border-gray-500"/>
                     </div>
                     
-                    <form action="" className="flex flex-col gap-3">
+                    <form action="" className="flex flex-col gap-3 p-2">
                         <div>
                             <input type="email" placeholder="Email" 
                             className="mb-2"/>
                             <hr className="border-gray-400"/>
                         </div>
-                       <div>
+                       <div className="mb-4">
                             <input type="password" placeholder="Password" className="mb-2" />
                             <hr className="border-gray-400"/>
                        </div>
                         
                         <button className="bg-stone-900 text-stone-50 p-3 rounded-lg text-sm">Sign In</button>
                         <button className="border-1 border-blue-600 rounded-lg p-3 text-sm text-blue-600">Register Now</button>
-                        <p>Forget Password?</p>
+                        <p className="text-blue-600 font-semibold text-sm text-right">Forget Password?</p>
                     </form>
                 </div>
-                <p>FASCO Terms & Condition</p>
+                <p className="mt-10 text-right text-sm">FASCO Terms & Codnitions</p>
            </section>
         </div>
     )
