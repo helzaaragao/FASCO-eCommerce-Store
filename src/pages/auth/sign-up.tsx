@@ -1,10 +1,10 @@
 export function SignUp(){
     return(
-        <div className="p-8">
-           <picture>
+        <div className="p-8 lg:flex">
+           <picture className="lg:w-x1">
                 <img src="src/assets/signUpImage.png" alt="" />
            </picture>
-           <section className="p-4">
+           <section className="p-4 lg:w-2x1">
                 <h1 className="mt-4 font-volkhov text-3xl text-gray-700">FASCO</h1>
                 <div className="mt-4">
                     <h2 className="font-volkhov text-xl">Create Account</h2>
@@ -61,15 +61,14 @@ export function SignUp(){
                           <div>
                             <input type="password" placeholder="Confirm Password" className="mb-2" />
                             <hr className="border-gray-400"/>
-                       </div>
+                         </div>
                         </div>
                         
-                        <button className="bg-stone-900 text-stone-50 p-3 rounded-lg text-sm w-full">Create Account</button>
-                        <p className="text-sm text-center">Already have a account? <a href="" className="text-blue-600">Login</a></p>
-                        <p>Forget Password?</p>
+                        <button className="bg-stone-900 text-stone-50 mt-4 p-3 rounded-lg text-sm w-full">Create Account</button>
+                        <p className="p-4 text-sm text-center">Already have a account? <a href="" className="text-blue-600">Login</a></p>
                     </form>
                 </div>
-                <p>FASCO Terms & Condition</p>
+                <p className="mt-10 text-right text-sm">FASCO Terms & Condition</p>
            </section>
         </div>
     )
