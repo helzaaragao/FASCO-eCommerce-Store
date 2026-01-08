@@ -1,4 +1,4 @@
-export function SignUp(){
+export default function SignUp(){
     return(
         <div className="p-8 lg:flex">
            <picture className="lg:w-x1">

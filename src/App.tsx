@@ -1,8 +1,10 @@
+import { RouterProvider } from "react-router";
+import { routerConfig } from "./routes";
 
 export function App() {
   return(
     <>
-    <h1>Olá</h1>
+     <RouterProvider router={routerConfig}></RouterProvider>
     </>
   )
 }
