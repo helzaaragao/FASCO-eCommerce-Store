@@ -1,0 +1,33 @@
+{
+  "name": "fasco",
+  "version": "1.0.0",
+  "description": "online shopping website",
+  "homepage": "https://github.com/helzaaragao/FASCO-eCommerce-Store#readme",
+  "bugs": {
+    "url": "https://github.com/helzaaragao/FASCO-eCommerce-Store/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/helzaaragao/FASCO-eCommerce-Store.git"
+  },
+  "license": "ISC",
+  "author": "helza",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsx src/server.ts"
+  },
+  "dependencies": {
+    "@fastify/cors": "^11.2.0",
+    "fastify": "^5.6.2",
+    "fastify-type-provider-zod": "^6.1.0",
+    "mysql2": "^3.16.0",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "tsx": "^4.21.0",
+    "typescript": "^5.9.3"
+  }
+}
