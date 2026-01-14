@@ -1,7 +1,7 @@
 import { fastify } from 'fastify'
 import { fastifyCors } from '@fastify/cors'
 import { serializerCompiler, validatorCompiler } from 'fastify-type-provider-zod'
-import db from './models'
+import db from './models/index.js'
 const app = fastify()
 
 
