@@ -2,7 +2,7 @@ export default function SignUp(){
     return(
         <div className="p-8 lg:flex">
            <picture className="lg:w-x1">
-                <img src="src/assets/signUpImage.png" alt="" />
+                <img className="w-full h-9/10" src="src/assets/signUp.jpg" alt="" />
            </picture>
            <section className="p-4 lg:w-2x1">
                 <h1 className="mt-4 font-volkhov text-3xl text-gray-700">FASCO</h1>

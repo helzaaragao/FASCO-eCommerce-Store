@@ -2,7 +2,7 @@ export function SignIn(){
     return(
         <div className="p-8">
            <picture>
-                <img src="src/assets/signInImage.png" alt="" />
+                <img className="w-full h-9/10" src="src/assets/signIn.jpg" alt="" />
            </picture>
            <section className="p-4">
                 <h1 className="mt-4 font-volkhov text-3xl text-gray-700">FASCO</h1>
