@@ -1,7 +1,6 @@
 import { DataTypes, Sequelize, Model } from 'sequelize';
 import bcrypt from 'bcrypt';
 
-
 interface UserInstance extends Model {
   id: number;
   firstName: string;
@@ -59,7 +58,6 @@ const User = (sequelize: Sequelize) => {
   }, {
     timestamps: true
   });
-
 
   return UserModel;
 };
