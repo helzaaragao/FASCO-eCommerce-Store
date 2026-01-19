@@ -4,13 +4,14 @@ import isMobilePhone from 'validator/es/lib/isMobilePhone';
 import UserModel from './models'
  
 interface User {
-    id: string
+    id: number
     firstName: string 
     lastName: string
     email: string
     phone: string
     password: string
-}
+} //usar
+
 export async function routes(app: FastifyTypedInstance) {
     app.get('/users', {
         schema: {
@@ -18,7 +19,7 @@ export async function routes(app: FastifyTypedInstance) {
             description: 'List users', 
             response: {
                 200: z.array(z.object({
-                    id: z.string(), 
+                    id: z.number(), 
                     firstName: z.string(), 
                     lastName: z.string(), 
                     email: z.string(), 
@@ -27,8 +28,9 @@ export async function routes(app: FastifyTypedInstance) {
                 }))
             }
         },
-    }, () => {
-        return []
+    }, async () => {
+        const usersAll = await UserModel.User.findAll()
+        return usersAll
     })
 
     app.post('/users', {
@@ -39,7 +41,7 @@ export async function routes(app: FastifyTypedInstance) {
                 firstName: z.string(), 
                 lastName: z.string(), 
                 email: z.email(), 
-                phone: z.string().refine(isMobilePhone), //defini qual telefones vão ser validos
+                phone: z.string().refine(isMobilePhone).trim(), //defini qual telefones vão ser validos
                 password: z.string()
             }),
             response: {
@@ -47,8 +49,8 @@ export async function routes(app: FastifyTypedInstance) {
             }
         }
     }, async (request, reply) => {
-        const users = request.body 
-        await UserModel.User.create(users); //insere os dados no banco de dados
+        const usersBody = request.body 
+        await UserModel.User.create(usersBody);  //insere os dados no banco de dados
         reply.code(201).send();
     })
 }
