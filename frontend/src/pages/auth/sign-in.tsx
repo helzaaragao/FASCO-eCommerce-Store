@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import z from 'zod'
 
@@ -10,12 +11,25 @@ const signInSchema = z.object({
 type SignInSchema = z.infer<typeof signInSchema>
 
 export function SignIn(){
-    const { register, handleSubmit } = useForm<SignInSchema>({
+    const { 
+        register, 
+        handleSubmit, 
+        reset
+    } = useForm<SignInSchema>({
         resolver: zodResolver(signInSchema)
     })
 
-    function handleSignIn(){
-        console.log("Ainda não")
+  async function handleSignIn(data: SignInSchema){
+        try{
+            await axios.get('http://localhost:7777/users', {params: data}).then(() => {
+            reset({
+                email: '',
+                password: ''
+                    }) 
+                })
+            } catch (error) {
+                console.error('Error', error)
+            }
     }
     return(
         <div className="p-8">

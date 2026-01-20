@@ -2,10 +2,8 @@ import { Outlet } from "react-router";
 
 export function AuthLayout() { 
     return(
-        <div>
-            <div>
-                <Outlet></Outlet>
-            </div>
+        <div className="lg:p-7">
+             <Outlet></Outlet>
         </div>
     )
 }

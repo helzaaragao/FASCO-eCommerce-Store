@@ -6,8 +6,8 @@ import axios from 'axios'
 const signUpSchema = z.object({
     firstName: z.string(), 
     lastName: z.string(), 
-    email: z.string(), 
-    phone: z.string(),
+    email: z.email(), 
+    phone: z.string().trim(),
     password: z.string()
     //required?
 })
@@ -16,22 +16,35 @@ type SignUpSchema = z.infer<typeof signUpSchema>
 // Adicionar Errors message
 
 export default function SignUp(){
-    const {register, handleSubmit} = useForm<SignUpSchema>({
+    const {
+        register, 
+        handleSubmit, 
+        reset, 
+    } = useForm<SignUpSchema>({
         resolver: zodResolver(signUpSchema)
     })
 
-    function handleSignUp(data: SignUpSchema){
-        axios.post('http://localhost:7777/users', data)
-        // .then((reply) => {
-        //     console.log(reply)
-        // })
+    async function handleSignUp(data: SignUpSchema){
+            try{
+                await axios.post('http://localhost:7777/users', data).then(() => {
+                    reset({
+                        firstName: '', 
+                        lastName: '',
+                        email: '',
+                        phone: '',
+                        password: ''
+                    }) 
+                })
+            } catch (error) {
+                console.error('Error', error)
+            }
     }
     return(
-        <div className="p-8 lg:flex">
-           <picture className="lg:w-x1">
-                <img className="w-full h-9/10" src="src/assets/signUp.jpg" alt="" />
+        <div className="p-8 md:flex items-start justify-center-safe gap-4 lg:flex">
+           <picture className="md:w-1/2 lg:w-1/2">
+                <img className="w-full h-9/10 md:" src="src/assets/signUp.jpg" alt="" />
            </picture>
-           <section className="p-4 lg:w-2x1">
+           <section className="p-4 md:w-1/2 lg:w-1/2">
                 <h1 className="mt-4 font-volkhov text-3xl text-gray-700">FASCO</h1>
                 <div className="mt-4">
                     <h2 className="font-volkhov text-xl">Create Account</h2>
@@ -74,7 +87,7 @@ export default function SignUp(){
                             <hr className="border-gray-400"/>
                         </div>
                         <div>
-                            <input type="number" placeholder="Phone Number" className="mb-2" {...register('phone')}/>
+                            <input type="text" placeholder="Phone Number" className="mb-2" {...register('phone')}/>
                             <hr className="border-gray-400"/>
                         </div>
                        <div>
@@ -88,7 +101,7 @@ export default function SignUp(){
                         </div>
                         
                         <button type="submit" className="bg-stone-900 text-stone-50 mt-4 p-3 rounded-lg text-sm w-full">Create Account</button>
-                        <p className="p-4 text-sm text-center">Alre-ady have a account? <a href="" className="text-blue-600">Login</a></p>
+                        <p className="p-4 text-sm text-center">Already have a account? <a href="" className="text-blue-600">Login</a></p>
                     </form>
                 </div>
                 <p className="mt-10 text-right text-sm">FASCO Terms & Condition</p>
