@@ -1,4 +1,31 @@
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import z from 'zod'
+import axios from 'axios'
+
+const signUpSchema = z.object({
+    firstName: z.string(), 
+    lastName: z.string(), 
+    email: z.string(), 
+    phone: z.string(),
+    password: z.string()
+    //required?
+})
+
+type SignUpSchema = z.infer<typeof signUpSchema>
+// Adicionar Errors message
+
 export default function SignUp(){
+    const {register, handleSubmit} = useForm<SignUpSchema>({
+        resolver: zodResolver(signUpSchema)
+    })
+
+    function handleSignUp(data: SignUpSchema){
+        axios.post('http://localhost:7777/users', data)
+        // .then((reply) => {
+        //     console.log(reply)
+        // })
+    }
     return(
         <div className="p-8 lg:flex">
            <picture className="lg:w-x1">
@@ -32,40 +59,36 @@ export default function SignUp(){
                         <h3 className="text-gray-500 font-bold text-center text-lg"> OR </h3>
                          <hr className="w-5 border-2 border-gray-500"/>
                     </div>
-                    <form action="" className="">
+                    <form onSubmit={handleSubmit(handleSignUp)} className="">
                         <div className="grid grid-cols-1 gap-3">
                              <div>
-                            <input type="text" placeholder="First Name" 
-                            className="mb-2"/>
+                            <input type="text" placeholder="First Name" className="mb-2" {...register('firstName')}/>
                             <hr className="border-gray-400"/>
                         </div>
                         <div>
-                            <input type="text" placeholder="Last Name" 
-                            className="mb-2"/>
+                            <input type="text" placeholder="Last Name" className="mb-2" {...register('lastName')}/>
                             <hr className="border-gray-400"/>
                         </div>
                          <div>
-                            <input type="email" placeholder="Email Address" 
-                            className="mb-2"/>
+                            <input type="email" placeholder="Email Address" className="mb-2" {...register('email')}/>
                             <hr className="border-gray-400"/>
                         </div>
                         <div>
-                            <input type="number" placeholder="Phone Number" 
-                            className="mb-2"/>
+                            <input type="number" placeholder="Phone Number" className="mb-2" {...register('phone')}/>
                             <hr className="border-gray-400"/>
                         </div>
                        <div>
-                            <input type="password" placeholder="Password" className="mb-2" />
+                            <input type="password" placeholder="Password" className="mb-2" {...register('password')}/>
                             <hr className="border-gray-400"/>
                        </div>
                           <div>
-                            <input type="password" placeholder="Confirm Password" className="mb-2" />
+                            <input type="password" placeholder="Confirm Password" className="mb-2" {...register('password')}/>
                             <hr className="border-gray-400"/>
                          </div>
                         </div>
                         
-                        <button className="bg-stone-900 text-stone-50 mt-4 p-3 rounded-lg text-sm w-full">Create Account</button>
-                        <p className="p-4 text-sm text-center">Already have a account? <a href="" className="text-blue-600">Login</a></p>
+                        <button type="submit" className="bg-stone-900 text-stone-50 mt-4 p-3 rounded-lg text-sm w-full">Create Account</button>
+                        <p className="p-4 text-sm text-center">Alre-ady have a account? <a href="" className="text-blue-600">Login</a></p>
                     </form>
                 </div>
                 <p className="mt-10 text-right text-sm">FASCO Terms & Condition</p>

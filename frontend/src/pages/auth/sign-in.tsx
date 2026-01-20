@@ -1,4 +1,22 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import z from 'zod'
+
+const signInSchema = z.object({
+    email: z.email(),
+    password: z.string()
+})
+
+type SignInSchema = z.infer<typeof signInSchema>
+
 export function SignIn(){
+    const { register, handleSubmit } = useForm<SignInSchema>({
+        resolver: zodResolver(signInSchema)
+    })
+
+    function handleSignIn(){
+        console.log("Ainda não")
+    }
     return(
         <div className="p-8">
            <picture>
@@ -33,18 +51,17 @@ export function SignIn(){
                          <hr className="w-5 border-2 border-gray-500"/>
                     </div>
                     
-                    <form action="" className="flex flex-col gap-3 p-2">
+                    <form onSubmit={handleSubmit(handleSignIn)} className="flex flex-col gap-3 p-2">
                         <div>
-                            <input type="email" placeholder="Email" 
-                            className="mb-2"/>
+                            <input type="email" placeholder="Email" className="mb-2" {...register('email')}/>
                             <hr className="border-gray-400"/>
                         </div>
                        <div className="mb-4">
-                            <input type="password" placeholder="Password" className="mb-2" />
+                            <input type="password" placeholder="Password" className="mb-2" {...register('password')} />
                             <hr className="border-gray-400"/>
                        </div>
                         
-                        <button className="bg-stone-900 text-stone-50 p-3 rounded-lg text-sm">Sign In</button>
+                        <button type="submit" className="bg-stone-900 text-stone-50 p-3 rounded-lg text-sm">Sign In</button>
                         <button className="border-1 border-blue-600 rounded-lg p-3 text-sm text-blue-600">Register Now</button>
                         <p className="text-blue-600 font-semibold text-sm text-right">Forget Password?</p>
                     </form>
@@ -54,3 +71,5 @@ export function SignIn(){
         </div>
     )
 }
+
+//{...register('password')} = não precisa adicionar a tag name pois isso cuida dessa parte
