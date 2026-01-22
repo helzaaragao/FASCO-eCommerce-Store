@@ -5,3 +5,13 @@
     --font-poppins: 'Poppins', sans-serif;
     --font-volkhov: 'Volkhov', serif;
 }
+
+/* @utility scrollbar-hidden {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+} */
+
+/* @utility no-scrollbar {
+  @apply [scrollbar-width:none] [&::-webkit-scrollbar]:hidden;
+} */

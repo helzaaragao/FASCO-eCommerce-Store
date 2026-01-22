@@ -40,11 +40,11 @@ export default function SignUp(){
             }
     }
     return(
-        <div className="p-8 md:flex items-start justify-center-safe gap-4 lg:flex">
-           <picture className="md:w-1/2 lg:w-1/2">
-                <img className="w-full h-9/10 md:" src="src/assets/signUp.jpg" alt="" />
+        <div className="p-4 lg:m-2 rounded-2xl md:items-start justify-center-safe gap-4 lg:flex lg:">
+           <picture className="flex-1">
+                <img className="" src="src/assets/signUp.jpg" alt="" />
            </picture>
-           <section className="p-4 md:w-1/2 lg:w-1/2">
+           <section className="p-4 flex-1">
                 <h1 className="mt-4 font-volkhov text-3xl text-gray-700">FASCO</h1>
                 <div className="mt-4">
                     <h2 className="font-volkhov text-xl">Create Account</h2>
@@ -109,3 +109,4 @@ export default function SignUp(){
         </div>
     )
 }
+// md:w-1/2 lg:w-1/2
