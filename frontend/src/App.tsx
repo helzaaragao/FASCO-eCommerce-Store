@@ -2,9 +2,9 @@ import { RouterProvider } from "react-router";
 import { routerConfig } from "./routes";
 
 export function App() {
-  return(
+  return (
     <>
-     <RouterProvider router={routerConfig}></RouterProvider>
+      <RouterProvider router={routerConfig}></RouterProvider>
     </>
-  )
+  );
 }
