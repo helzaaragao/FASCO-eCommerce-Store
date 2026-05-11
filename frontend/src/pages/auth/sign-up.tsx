@@ -2,6 +2,8 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import z from "zod";
 import axios from "axios";
+import { toast } from "sonner"; //notifição
+import { Link, useNavigate } from "react-router";
 
 const signUpSchema = z.object({
   firstName: z.string(),
@@ -12,6 +14,10 @@ const signUpSchema = z.object({
   //required?
 });
 
+const TOAST_DURATION = 5000;
+
+
+
 type SignUpSchema = z.infer<typeof signUpSchema>;
 // Adicionar Errors message
 
@@ -20,9 +26,16 @@ export default function SignUp() {
     resolver: zodResolver(signUpSchema),
   });
 
+  const navigate = useNavigate();
+
   async function handleSignUp(data: SignUpSchema) {
     try {
-      await axios.post("http://localhost:7777/users", data).then(() => {
+      await axios.post("http://localhost:7777/users", data) 
+
+      toast.success("Cadastro realizado com sucesso!", {
+        description:"Realize o seu login", 
+        duration: TOAST_DURATION,
+      })
         reset({
           firstName: "",
           lastName: "",
@@ -30,11 +43,20 @@ export default function SignUp() {
           phone: "",
           password: "",
         });
-      });
-    } catch (error) {
+
+        setTimeout(() => {
+          navigate("/sign-in")
+        }, TOAST_DURATION)
+
+    } catch(error) {
+      toast.error("Erro ao realizar cadastro", {
+        description: "Tente novamente mais tarde.", 
+      })
       console.error("Error", error);
+      // classificação de erros 
     }
   }
+ 
   return (
     <div className="min-h-screen rounded-r-lg border-1 border-gray-300 md:flex md:gap-15 lg:flex-1">
       <picture className="md:block md:h-auto md:w-1/2">
@@ -175,14 +197,14 @@ export default function SignUp() {
               <button
                 type="submit"
                 className="mt-6 w-3xs cursor-pointer rounded-lg bg-stone-900 p-3 text-sm font-semibold text-stone-50 shadow-md lg:mt-10 lg:w-lg"
-              >
+                >
                 Create Account
               </button>
               <p className="p-4 text-center text-sm">
                 Already have a account?{" "}
-                <a href="" className="text-blue-600">
+                <Link to="/sign-in" className="text-blue-600">
                   Login
-                </a>
+                </Link>
               </p>
             </div>
           </form>
@@ -196,3 +218,4 @@ export default function SignUp() {
 }
 // background color, texto, margin e padding, rounded
 // npx prettier --write "src/**/*.tsx"( manualmente o prettier do tailwind)
+// Está colocando no banco de dados sim
