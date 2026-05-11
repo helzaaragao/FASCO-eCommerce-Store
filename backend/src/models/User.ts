@@ -21,14 +21,21 @@ const User = (sequelize: Sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        notEmpty: true
+        notEmpty: true,
+      }, 
+      set(value: string) {
+        this.setDataValue("firstName", value.toLowerCase())
       }
+      
     },
     lastName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true
+      },
+      set(value: string) {
+        this.setDataValue("firstName", value.toLowerCase())
       }
     },
     email: {
@@ -36,15 +43,18 @@ const User = (sequelize: Sequelize) => {
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true
-      }
+        isEmail: true, 
+        notNull: {msg: 'The field needs to be filled in.'}
+      },
     },
     phone: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true
+
       }
+
     },
     password: {
       type: DataTypes.STRING,

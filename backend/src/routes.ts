@@ -53,4 +53,28 @@ export async function routes(app: FastifyTypedInstance) {
         await UserModel.User.create(usersBody);  //insere os dados no banco de dados
         reply.code(201).send();
     })
+
+    app.delete('/users',
+    {
+        schema: {
+            tags: ['users'],
+            description: 'Delete a user',
+            body: z.object({
+                id: z.number()
+            }),
+            response: {
+                201: z.null().describe('User deleted')
+            }
+        }
+    },
+    async (request, reply) => {
+        const { id } = request.body;
+
+        await UserModel.User.destroy({
+            where: { id }
+        });
+
+        reply.code(201).send();
+    }
+);
 }
