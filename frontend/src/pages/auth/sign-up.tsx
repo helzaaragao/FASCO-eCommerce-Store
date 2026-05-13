@@ -1,62 +1,6 @@
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import z from "zod";
-import axios from "axios";
-import { toast } from "sonner"; //notifição
-import { Link, useNavigate } from "react-router";
-
-const signUpSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
-  email: z.email(),
-  phone: z.string().trim(),
-  password: z.string(),
-  //required?
-});
-
-const TOAST_DURATION = 5000;
-
-
-
-type SignUpSchema = z.infer<typeof signUpSchema>;
-// Adicionar Errors message
+import { SignUpForm } from "../../components/SignUpForm";
 
 export default function SignUp() {
-  const { register, handleSubmit, reset } = useForm<SignUpSchema>({
-    resolver: zodResolver(signUpSchema),
-  });
-
-  const navigate = useNavigate();
-
-  async function handleSignUp(data: SignUpSchema) {
-    try {
-      await axios.post("http://localhost:7777/users", data) 
-
-      toast.success("Cadastro realizado com sucesso!", {
-        description:"Realize o seu login", 
-        duration: TOAST_DURATION,
-      })
-        reset({
-          firstName: "",
-          lastName: "",
-          email: "",
-          phone: "",
-          password: "",
-        });
-
-        setTimeout(() => {
-          navigate("/sign-in")
-        }, TOAST_DURATION)
-
-    } catch(error) {
-      toast.error("Erro ao realizar cadastro", {
-        description: "Tente novamente mais tarde.", 
-      })
-      console.error("Error", error);
-      // classificação de erros 
-    }
-  }
- 
   return (
     <div className="min-h-screen rounded-r-lg border-1 border-gray-300 md:flex md:gap-15 lg:flex-1">
       <picture className="md:block md:h-auto md:w-1/2">
@@ -136,78 +80,7 @@ export default function SignUp() {
             </h3>
             <hr className="w-5 border-2 border-neutral-500" />
           </div>
-          <form onSubmit={handleSubmit(handleSignUp)} className="">
-            <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-8">
-              <div>
-                <input
-                  type="text"
-                  placeholder="First Name"
-                  className="mb-2 w-full focus:ring-1 focus:ring-blue-600 focus:outline-none"
-                  {...register("firstName")}
-                />
-                <hr className="border-gray-400" />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  placeholder="Last Name"
-                  className="mb-2 w-full focus:ring-1 focus:ring-blue-600 focus:outline-none"
-                  {...register("lastName")}
-                />
-                <hr className="border-gray-400" />
-              </div>
-              <div>
-                <input
-                  type="email"
-                  placeholder="Email Address"
-                  className="mb-2 w-full focus:ring-1 focus:ring-blue-600 focus:outline-none"
-                  {...register("email")}
-                />
-                <hr className="border-gray-400" />
-              </div>
-              <div>
-                <input
-                  type="text"
-                  placeholder="Phone Number"
-                  className="mb-2 w-full focus:ring-1 focus:ring-blue-600 focus:outline-none"
-                  {...register("phone")}
-                />
-                <hr className="border-gray-400" />
-              </div>
-              <div>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  className="mb-2 w-full focus:ring-1 focus:ring-blue-600 focus:outline-none"
-                  {...register("password")}
-                />
-                <hr className="border-gray-400" />
-              </div>
-              <div>
-                <input
-                  type="password"
-                  placeholder="Confirm Password"
-                  className="mb-2 w-full focus:ring-1 focus:ring-blue-600 focus:outline-none"
-                  {...register("password")}
-                />
-                <hr className="border-gray-400" />
-              </div>
-            </div>
-            <div className="flex flex-col items-center">
-              <button
-                type="submit"
-                className="mt-6 w-3xs cursor-pointer rounded-lg bg-stone-900 p-3 text-sm font-semibold text-stone-50 shadow-md lg:mt-10 lg:w-lg"
-                >
-                Create Account
-              </button>
-              <p className="p-4 text-center text-sm">
-                Already have a account?{" "}
-                <Link to="/sign-in" className="text-blue-600">
-                  Login
-                </Link>
-              </p>
-            </div>
-          </form>
+          <SignUpForm></SignUpForm>
         </div>
         <p className="mt-10 text-right text-sm lg:mt-20">
           FASCO Terms & Condition
