@@ -21,7 +21,12 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(({name,error, touc
             />
             <hr className="border-gray-400" />
             {hasError && (
-                <span id={`${name}-error`} role="alert">
+                <span 
+                    id={`${name}-error`} 
+                    role="alert"
+                    className='text-red-500 text-sm block'
+
+                >
                     {error}
                 </span>
             )}

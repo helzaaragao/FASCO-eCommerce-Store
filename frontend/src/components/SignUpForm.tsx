@@ -1,10 +1,14 @@
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { requiredSignUpSchema, type SignUpFormData } from "../schemas/signUpSchema"
+import { signUpSchema, type SignUpFormData } from "../schemas/signUpSchema"
 import { toast } from "sonner";
 import axios from "axios";
 import { Link, useNavigate } from "react-router";
 import { Input } from "./ui/Input";
+import PhoneInput from 'react-phone-number-input'
+import 'react-phone-number-input/style.css'
+import type { E164Number } from "libphonenumber-js"; 
+import { useState } from "react";
 
 const toastDuration  = 5000;
 
@@ -15,13 +19,15 @@ export function SignUpForm(){
         reset, 
         formState: { errors, touchedFields, isSubmitting },
     } = useForm<SignUpFormData>({
-        resolver: zodResolver(requiredSignUpSchema),
+        resolver: zodResolver(signUpSchema),
         //  resolver:"use o Zod para validar tudo"
         mode: 'onBlur',
         // Evita mostrar erros para campos que o usuário ainda nem tocou.
         reValidateMode: 'onChange'
         // o usuário vê o erro sumir conforme corrige, em tempo real. Apôs o primeiro blur que eu coloquei, revalida cada tecla.
     }) 
+
+    const [phoneValue, setPhoneValue] = useState<E164Number | undefined>(undefined);
 
     const navigate = useNavigate();
 
@@ -45,13 +51,13 @@ export function SignUpForm(){
                 navigate("/sign-in");
             }, toastDuration);
         } catch (error) {
-            toast.error("Erro ao realizar cadastro", {
-                description: "Tente novamente mais tarde.",
+            toast.error("Error while registering.", {
+                description: "Try again!.",
             });
             console.error("Error", error);
-            // classificação de erros
         }
     }
+
     return(
         <form onSubmit={handleSubmit(handleSignUp)}>
             <div className="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-8">
@@ -76,13 +82,14 @@ export function SignUpForm(){
                     error={errors.email?.message}
                     touched={touchedFields.email}
                 />
-                <Input
-                    type="text"
-                    placeholder="Phone Number"
-                    error={errors.phone?.message}
-                    touched={touchedFields.phone}
-                  {...register("phone")}
-                />
+                <div>
+                    <PhoneInput
+                    placeholder="Enter phone number"
+                    value={phoneValue}
+                    onChange={setPhoneValue}
+                    />
+                    <hr className="border-gray-400 mt-2" />
+                </div>   
                 <Input
                     type="password"
                     placeholder="Password"
@@ -92,7 +99,7 @@ export function SignUpForm(){
                 />
                  <Input
                     type="password"
-                    placeholder="Password"
+                    placeholder="Confirm password"
                     error={errors.confirmPassword?.message}
                     touched={touchedFields.confirmPassword}
                     {...register("confirmPassword")}
