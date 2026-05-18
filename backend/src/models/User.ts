@@ -98,11 +98,6 @@ const User = (sequelize: Sequelize) => {
           }
         }
       }, 
-      // set(value: string) {
-      //   const saltRounds = 10;
-      //   const hash = bcrypt.hashSync(value, saltRounds);
-      //   this.setDataValue('password', hash);
-      // }
     }
   }, {
     timestamps: true

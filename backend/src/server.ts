@@ -7,6 +7,7 @@ import { fastifySwaggerUi } from '@fastify/swagger-ui'
 import db from './models/index.js'
 import { routes } from './routes.js'
 import { ZodTypeProvider } from 'fastify-type-provider-zod'
+import fastifyJwt from '@fastify/jwt'
 
 const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -28,13 +29,21 @@ app.register(fastifySwagger, {
             title: 'FASCO E-COMMERCE API',
             description: 'API for capturing and inspecting e-commerce requests', 
             version: '1.0.0',
-        }
+        }, 
+        tags: [
+            {name:'Users', description:'User management'}, //pública
+            {name: 'Sessions', description: 'Authentication'} //precisa de autenticar para acessar
+        ]
     },
     transform: jsonSchemaTransform,
 })
 
 app.register(fastifySwaggerUi, {
     routePrefix: '/docs'
+})
+
+app.register(fastifyJwt, {
+    secret: 'CHAVE_JWT'
 })
 
 app.register(routes)
